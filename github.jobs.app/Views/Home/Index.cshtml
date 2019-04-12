@@ -1,0 +1,221 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Job Listings &mdash;
+        GitHub Jobs
+    </title>
+
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="BXb+Emydgd62mbEEMdY329rYClsMlazFrorteLfh3LGIioj7EfHZjgQ/ETAyn3yNIORIWXiap2QKUMM1TWqP4w==" />
+    <meta name="csp-nonce" content="WtoQnYwAQURSoRd760uprA==" />
+
+    <script src="../../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../../Scripts/knockout-3.5.0.js"></script>
+    <script src="../../Scripts/knockout_mapping.min.js"></script>
+    <link rel="stylesheet" media="all" href="../../Content/css/main.css" />
+    <script src="../../Content/js/app.js"></script>
+    <script src="../../Scripts/app/app.js"></script>
+
+    <script nonce="WtoQnYwAQURSoRd760uprA==">
+        //<![CDATA[
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-3769691-9']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+        //]]>
+    </script>
+</head>
+
+<body>
+
+    <div id="jobs" class="non-footer">
+        <div id="header">
+            <div id="wrap">
+                <h2 id="logo">
+                    <a href="/">GitHub Jobs</a>
+                </h2>
+
+                <ul id="gnav">
+                    <li><a href="/positions">All jobs</a></li>
+                    <li><a href="/post">Post a job</a></li>
+                    <li><a href="/faq">How it works</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="wrap">
+
+
+
+            <div id="search" class="clearfix">
+
+                <form class="positions">
+                    <input name="utf8" type="hidden" value="&#x2713;" />
+
+                    <div class="bucket description">
+                        <h3>Job Description</h3>
+
+                        <div class="field">
+                            <input type="text" data-bind="textInput: description" name="description" id="description_field" placeholder="Filter by title, benefits, companies, expertise" autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <div class="bucket location">
+                        <h3>Location</h3>
+
+                        <div class="field">
+                            <input type="text" data-bind="textInput: location" name="location" id="location_field" placeholder="Filter by city, state, zip code or country" autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <div class="bucket fulltime">
+                        <label class="simplefield">
+                            <input type="checkbox" name="full_time" id="full_time_field" data-bind="checked: fullTime"/>
+                            Full Time Only
+                        </label>
+                    </div>
+
+                    <button type="button" data-bind="click: search">Search</button>
+
+                </form>
+            </div>
+
+
+            <div id="page">
+                <div class="inner">
+                    <!-- ko if: $root.showPaging -->
+                    <h1 data-bind="text: $root.paging">
+                    </h1>
+                    <!-- /ko -->
+                    <div class="columns generic">
+                        <div class="column main">
+                            <section>
+                                <table class="positionlist">
+                                    <tbody>
+                                        <!-- ko foreach: $root.Items -->
+                                        <tr class="job">
+                                            <td class="title">
+                                                <h4><a data-bind="attr: { href: $data.url }, text: $data.title"></a></h4>
+                                                <p class="source">
+                                                    <a class="company" data-bind="attr: { href: $data.company_url }, text: $data.company"></a>
+                                                    –
+                                                    <strong class="fulltime" data-bind="text: $data.type"></strong>
+                                                </p>
+                                            </td>
+
+                                            <td class="meta">
+                                                <span class="location" data-bind="text: $data.location"></span>
+                                                @*<span class="when relatize relatized">14 days ago</span>*@
+                                            </td>
+                                        </tr>
+                                        <!-- /ko -->
+                                    </tbody>
+                                </table>
+                                <!-- ko if: $root.showLoadMore -->
+                                <div class="pagination">
+                                    <a class="button" data-bind="click: loadMore">More Awesome Jobs</a>
+                                </div>
+                                <!-- /ko -->
+                            </section>
+                        </div>
+
+                        <div class="column sidebar">
+
+                            <a class="feed" href="/positions.atom?description=python&amp;location=new+yorkText">Subscribe to Atom Feed</a>
+                            <a class="tweet" href="https://twitter.com/GitHubJobs">Follow GitHub Jobs on Twitter</a>
+
+                            <div class="module">
+                                <div class="inner">
+                                    <h2>Subscribe to email updates</h2>
+
+                                    <p>Subscribe and we’ll send you a summary once a week if new jobs are posted to this list.</p>
+
+                                    <p>
+                                        <a class="button js-open-modal" href="#" rel="subscription-modal">Subscribe to updates</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div id="subscription-modal" class="content popup d-none">
+                                <form class="js-replace-form" id="new_subscription" data-replace-with="subscription-success" action="/subscriptions" accept-charset="UTF-8" data-remote="true" method="post">
+                                    <input name="utf8" type="hidden" value="&#x2713;" />
+                                    <h2>Subscribe by Email</h2>
+
+                                    <p>We promise not to spam or share your email.</p>
+
+                                    <div class="field">
+                                        <input class="fullon" placeholder="email" type="text" name="subscription[email]" id="subscription_email" />
+                                    </div>
+                                    <input type="hidden" value="python" name="subscription[description]" id="subscription_description" />
+                                    <input type="hidden" value="new yorkText" name="subscription[location]" id="subscription_location" />
+                                    <input type="hidden" name="subscription[full_time]" id="subscription_full_time" />
+
+                                    <br />
+
+                                    <button name="button" type="submit" class="button">Subscribe</button>
+                                </form>
+                                <a href="#" class="js-close-modal close">
+                                    <img src="../../Content/css/closelabel.png" class="close_image" title="close">
+                                </a>
+                            </div>
+
+                            <div class="d-none" id="subscription-success">
+                                <h2>Subscribed!</h2>
+
+                                <p>Expect an email with new listings soon!</p>
+
+                                <a href="#" class="js-close-modal button">Okay</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="inner">
+            <ul class="github-nav">
+                <li><a href="https://github.com/blog" class="blog">The GitHub Blog</a></li>
+                <li><a href="https://github.com/contact">Contact</a></li>
+                <li><a href="/api">API</a></li>
+            </ul>
+
+            <p class="copyline">
+                © 2019 GitHub Inc. All rights reserved.
+            </p>
+
+            <a href="https://github.com">
+                <img width="24" height="24" class="invertocat" src="../../Content/css/invertocat.png" />
+            </a>
+
+            <!-- Environment: production -->
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var viewModel = new AppViewModel('api/@Url.Action("Get", "Jobs")');
+            ko.applyBindings(viewModel, document.getElementById('jobs'));
+        });
+    </script>
+    <div id="facebox" class="popup d-none">
+        <div id="facebox_overlay" class="js-close-modal facebox_overlayBG"></div>
+        <div class="js-modal-contents"></div>
+    </div>
+</body>
+</html>
